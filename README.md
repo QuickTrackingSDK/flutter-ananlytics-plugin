@@ -1,6 +1,11 @@
 # Quick Tracking 统计SDK Flutter插件集成说明
 
+> 基于老版本QT统计SDK + SPM插件封装。需配合Android 端 1.3.4版本qt-common包和qt-spm包一起使用。
+
 --- 
+
+
+
 
 ## 集成Flutter插件
 

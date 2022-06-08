@@ -1,8 +1,8 @@
 #import "QTCommonSdkPlugin.h"
-#import <QTCommon/QTConfigure.h>
-#import <QTCommon/QTMobClick.h>
-#import <QTCommon/QTSpm.h>
-#import <QTCommon/QTSpmHybrid.h>
+#import <UMCommon/UMConfigure.h>
+#import <UMCommon/MobClick.h>
+#import <UMSpm/UMSpm.h>
+#import <UMSpm/UMSpmHybrid.h>
 
 @interface QTflutterpluginForQTCommon : NSObject
 @end
@@ -15,44 +15,44 @@
     if ([@"initCommon" isEqualToString:call.method]){
         NSString* appkey = arguments[1];
         NSString* channel = arguments[2];
-        [QTConfigure initWithAppkey:appkey channel:channel];
+        [UMConfigure initWithAppkey:appkey channel:channel];
         //result(@"success");
     }
     else if ([@"setCustomDomain" isEqualToString:call.method]){
         NSString* primaryDomain = arguments[0];
         NSString* standbyDomain = arguments[1];
 
-        [QTConfigure setCustomDomain:primaryDomain standbyDomain:standbyDomain];
+        [UMConfigure setCustomDomain:primaryDomain standbyDomain:standbyDomain];
     }
     else if ([@"isHook" isEqualToString:call.method]){
         BOOL isHook = [arguments[0] boolValue];
 
-        [QTConfigure isHook:isHook];
+        [UMConfigure isHook:isHook];
     }
     else if ([@"isHookUrl" isEqualToString:call.method]){
         BOOL isHookUrl = [arguments[0] boolValue];
 
-        [QTConfigure isHookUrl:isHookUrl];
+        [UMConfigure isHookUrl:isHookUrl];
     }
     else if ([@"isHookEvent" isEqualToString:call.method]){
         BOOL isHookEvent = [arguments[0] boolValue];
 
-        [QTConfigure isHookEvent:isHookEvent];
+        [UMConfigure isHookEvent:isHookEvent];
     }
     else if ([@"isHookPage" isEqualToString:call.method]){
         BOOL isHookPage = [arguments[0] boolValue];
 
-        [QTConfigure isHookPage:isHookPage];
+        [UMConfigure isHookPage:isHookPage];
     }
     else if ([@"setAppVersion" isEqualToString:call.method]){
         NSString* appVersion = arguments[0];
 
-        [QTConfigure setAppVersion:appVersion];
+        [UMConfigure setAppVersion:appVersion];
     }
     else if ([@"setLogEnabled" isEqualToString:call.method]){
         BOOL enabled = [arguments[0] boolValue];
 
-        [QTConfigure setLogEnabled:enabled];
+        [UMConfigure setLogEnabled:enabled];
     }
     else{
         resultCode = NO;
@@ -72,68 +72,67 @@
     if ([@"onEvent" isEqualToString:call.method]){
         NSString* eventName = arguments[0];
         NSDictionary* properties = arguments[1];
-        [QTMobClick event:eventName attributes:properties];
+        [MobClick event:eventName attributes:properties];
         //result(@"success");
     }
     if ([@"onEventWithPage" isEqualToString:call.method]){
         NSString* eventName = arguments[0];
         NSString* pageName = arguments[1];
         NSDictionary* properties = arguments[2];
-        [QTMobClick event:eventName pageName:pageName attributes:properties];
+        [MobClick event:eventName pageName:pageName attributes:properties];
         //result(@"success");
     }
     else if ([@"onProfileSignIn" isEqualToString:call.method]){
         NSString* userID = arguments[0];
         NSString* provider = arguments[1];
-        [QTMobClick profileSignInWithPUID:userID provider:provider];
-
+        [MobClick profileSignInWithPUID:userID provider:provider];
         //result(@"success");
     }
     else if ([@"onProfileSignOff" isEqualToString:call.method]){
-        [QTMobClick profileSignOff];
+        [MobClick profileSignOff];
         //result(@"success");
     }
 //    else if ([@"setAutoPageEnabled" isEqualToString:call.method]){
 //        BOOL enabled=[arguments[0] boolValue];
-//        [QTMobClick setAutoPageEnabled:enabled];
+//        [MobClick setAutoPageEnabled:enabled];
 //        //result(@"success");
 //    }
 //    else if ([@"setAutoEventEnabled" isEqualToString:call.method]){
 //        BOOL enabled=[arguments[0] boolValue];
 //
-//        [QTMobClick setAutoEventEnabled:enabled];
+//        [MobClick setAutoEventEnabled:enabled];
 //        //result(@"success");
 //    }
     else if ([@"onPageStart" isEqualToString:call.method]){
         NSString* pageName = arguments[0];
-        [QTMobClick beginLogPageView:pageName];
+        [MobClick beginLogPageView:pageName];
         //result(@"success");
     }
     else if ([@"onPageEnd" isEqualToString:call.method]){
         NSString* pageName = arguments[0];
-        [QTMobClick endLogPageView:pageName];
+        [MobClick endLogPageView:pageName];
         //result(@"success");
     }
     else if ([@"registerGlobalProperties" isEqualToString:call.method]){
         NSDictionary* dic = arguments[0];
-        [QTMobClick registerGlobalProperty:dic];
+        [MobClick registerGlobalProperty:dic];
         //result(@"success");
     }
     else if ([@"unregisterGlobalProperty" isEqualToString:call.method]){
         NSString* propertyName = arguments[0];
-        [QTMobClick unregisterGlobalProperty:propertyName];
+        [MobClick unregisterGlobalProperty:propertyName];
         //result(@"success");
     }
     else if ([@"getGlobalProperties" isEqualToString:call.method]){
-        NSString *jsonStr=[self JSONFragment:[QTMobClick getGlobalProperties]];
+        NSString *jsonStr=[self JSONFragment:[MobClick getGlobalProperties]];
         result(jsonStr);
     }
     else if ([@"getGlobalProperty" isEqualToString:call.method]){
         NSString* propertyName = arguments[0];
-        result([QTMobClick getSuperProperty:propertyName]);
+        result([MobClick getSuperProperty:propertyName]);
     }
     else if ([@"clearGlobalProperties" isEqualToString:call.method]){
-        [QTMobClick clearGlobalProperties];
+        [MobClick clearGlobalProperties];
         //result(@"success");
     }
     else if ([@"reportError" isEqualToString:call.method]){
@@ -184,21 +183,21 @@
 
     if ([@"skipMe" isEqualToString:call.method]){
         NSString* pageName = arguments[0];
-        [QTSpmHybrid skipMe:nil pageName:pageName];
+        [UMSpmHybrid skipMe:nil pageName:pageName];
         //result(@"success");
     }
     else if ([@"setPageProperty" isEqualToString:call.method]){
         NSString* pageName = arguments[0];
         NSDictionary* dic = arguments[1];
-        [QTSpm updatePageProperties:pageName properties:dic];
+        [UMSpm updatePageProperties:pageName properties:dic];
     }
     else if ([@"updateCurSpm" isEqualToString:call.method]){
         NSString* curSPM = arguments[0];
-        [QTSpm updateCurSPM:curSPM];
+        [UMSpm updateCurSPM:curSPM];
     }
     else if ([@"updateNextPageProperties" isEqualToString:call.method]){
         NSDictionary* dic = arguments[0];
-        [QTSpm updateNextPageProperties:dic];
+        [UMSpm updateNextPageProperties:dic];
     }
     else{
         resultCode = NO;

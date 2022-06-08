@@ -1,6 +1,6 @@
 package com.aliyun.qt_common_sdk_example;
 
-import com.quick.qt.commonsdk.QtConfigure;
+import com.umeng.commonsdk.UMConfigure;
 
 public class App extends io.flutter.app.FlutterApplication {
     public static final String DEFAULT_APPKEY = "您的appkey(Android端)";
@@ -10,8 +10,8 @@ public class App extends io.flutter.app.FlutterApplication {
     public void onCreate() {
         super.onCreate();
 
-        QtConfigure.setCustomDomain(DEFAULT_HOST, null);
-        QtConfigure.setLogEnabled(true);
-        QtConfigure.preInit(this, DEFAULT_APPKEY, DEFAULT_CHANNEL);
+        UMConfigure.setCustomDomain(DEFAULT_HOST, null);
+        UMConfigure.setLogEnabled(true);
+        UMConfigure.preInit(this, DEFAULT_APPKEY, DEFAULT_CHANNEL);
     }
 }

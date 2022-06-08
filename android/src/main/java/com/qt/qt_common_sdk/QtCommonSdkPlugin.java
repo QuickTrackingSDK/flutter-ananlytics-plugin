@@ -4,8 +4,9 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.quick.qt.analytics.QtTrackAgent;
-import com.quick.qt.commonsdk.QtConfigure;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.spm.SpmAgent;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -38,7 +39,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
 
     private static void onAttachedEngineAdd() {
         try {
-            Class<?> agent = Class.forName("com.quick.qt.analytics.QtTrackAgent");
+            Class<?> agent = Class.forName("com.umeng.analytics.MobclickAgent");
             Method[] methods = agent.getDeclaredMethods();
             for (Method m : methods) {
 //                Log.e("UMLog", "Reflect:" + m);
@@ -60,7 +61,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
 
         Method method = null;
         try {
-            Class<?> config = Class.forName("com.quick.qt.commonsdk.QtConfigure");
+            Class<?> config = Class.forName("com.umeng.commonsdk.UMConfigure");
             method = config.getDeclaredMethod("setWraperType", String.class, String.class);
             method.setAccessible(true);
             method.invoke(null, "flutter", "1.0");
@@ -186,7 +187,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
         try {
             String appkey = (String) args.get(0);
             String channel = (String) args.get(2);
-            QtConfigure.init(getContext(), appkey, channel, QtConfigure.DEVICE_TYPE_PHONE, null);
+            UMConfigure.init(getContext(), appkey, channel, UMConfigure.DEVICE_TYPE_PHONE, null);
             Log.i("UMLog", "initCommon:" + appkey + "@" + channel);
         } catch (Throwable e) {
             Log.e("UMLog", "initCommon invoke error: " + e.getMessage());
@@ -197,7 +198,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
         try {
             String version = (String) args.get(0);
             int versionCode = (int) args.get(1);
-            QtConfigure.setAppVersion(version, versionCode);
+            UMConfigure.setAppVersion(version, versionCode);
         } catch (Throwable e) {
             Log.e("UMLog", "setAppVersion invoke error: " + e.getMessage());
         }
@@ -211,9 +212,9 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
                 map = (Map) args.get(1);
             }
             if ((map != null) && (map.size() > 0)) {
-                QtTrackAgent.onEventObject(getContext(), event, map);
+                MobclickAgent.onEventObject(getContext(), event, map);
             } else {
-                QtTrackAgent.onEvent(getContext(), event);
+                MobclickAgent.onEvent(getContext(), event);
             }
 
             if (map != null) {
@@ -235,9 +236,9 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
                 map = (Map) args.get(2);
             }
             if ((map != null) && (map.size() > 0)) {
-                QtTrackAgent.onEventObject(getContext(), event, map, pageName);
+                MobclickAgent.onEventObject(getContext(), event, map, pageName);
             } else {
-                QtTrackAgent.onEvent(getContext(), event, pageName);
+                MobclickAgent.onEvent(getContext(), event, pageName);
             }
             if (map != null) {
                 Log.i("UMLog", "onEventWithPage:" + event + "(" + map.toString() + ")");
@@ -253,7 +254,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
         try {
             String userID = (String) args.get(0);
             String provider = (String) args.get(1);
-            QtTrackAgent.onProfileSignIn(userID, provider);
+            MobclickAgent.onProfileSignIn(userID, provider);
             Log.i("UMLog", "onProfileSignIn:" + userID);
         } catch (Throwable e) {
             Log.e("UMLog", "onProfileSignInEx invoke error: " + e.getMessage());
@@ -261,7 +262,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
     }
 
     private void onProfileSignOff() {
-        QtTrackAgent.onProfileSignOff();
+        MobclickAgent.onProfileSignOff();
         Log.i("UMLog", "onProfileSignOff");
     }
 
@@ -269,7 +270,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
     private void onPageStart(List args) {
         try {
             String event = (String) args.get(0);
-            QtTrackAgent.onPageStart(event);
+            MobclickAgent.onPageStart(event);
             Log.i("UMLog", "onPageStart:" + event);
         } catch (Throwable e) {
             Log.e("UMLog", "onPageStart invoke error: " + e.getMessage());
@@ -279,7 +280,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
     private void onPageEnd(List args) {
         try {
             String event = (String) args.get(0);
-            QtTrackAgent.onPageEnd(event);
+            MobclickAgent.onPageEnd(event);
             Log.i("UMLog", "onPageEnd:" + event);
         } catch (Throwable e) {
             Log.e("UMLog", "onPageEnd invoke error: " + e.getMessage());
@@ -292,7 +293,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             if (args.size() > 0) {
                 map = (Map) args.get(0);
             }
-            QtTrackAgent.registerGlobalProperties(getContext(), map);
+            MobclickAgent.registerGlobalProperties(getContext(), map);
         } catch (Throwable e) {
             Log.e("UMLog", "registerGlobalProperties invoke error: " + e.getMessage());
         }
@@ -301,21 +302,21 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
     private void unregisterGlobalProperty(List args) {
         try {
             String propertyName = (String)args.get(0);
-            QtTrackAgent.unregisterGlobalProperty(getContext(), propertyName);
+            MobclickAgent.unregisterGlobalProperty(getContext(), propertyName);
         } catch (Throwable e) {
             Log.e("UMLog", "unregisterGlobalProperty invoke error: " + e.getMessage());
         }
     }
 
     private void clearGlobalProperties(List args) {
-        QtTrackAgent.clearGlobalProperties(getContext());
+        MobclickAgent.clearGlobalProperties(getContext());
     }
 
     private Object getGlobalProperty(List args) {
         Object result = null;
         try {
             String propertyName = (String)args.get(0);
-            result = QtTrackAgent.getGlobalProperty(getContext(), propertyName);
+            result = MobclickAgent.getGlobalProperty(getContext(), propertyName);
             return result;
         } catch (Throwable e) {
             Log.e("UMLog", "getGlobalProperty invoke error: " + e.getMessage());
@@ -326,7 +327,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
     private Object getGlobalProperties(List args) {
         Object result = null;
         try {
-            result = QtTrackAgent.getGlobalProperties(getContext());
+            result = MobclickAgent.getGlobalProperties(getContext());
             return result;
         } catch (Throwable e) {
             Log.e("UMLog", "getGlobalProperties invoke error: " + e.getMessage());
@@ -337,7 +338,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
     private void skipMe(List args) {
         try {
             String pageName = (String) args.get(0);
-            QtTrackAgent.skipMe(getContext(), pageName);
+            MobclickAgent.skipMe(getContext(), pageName);
             Log.i("UMLog", "skipMe: pageName = " + pageName);
         } catch (Throwable e) {
             Log.e("UMLog", "skipMe invoke error: " + e.getMessage());
@@ -347,7 +348,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
     private void updateCurSpm(List args) {
         try {
             String curSpm = (String) args.get(0);
-            QtTrackAgent.updateCurSpm(getContext(), curSpm);
+            SpmAgent.updateCurSpm(getContext(), curSpm);
             Log.i("UMLog", "updateCurSpm: curSpm = " + curSpm);
         } catch (Throwable e) {
             Log.e("UMLog", "updateCurSpm invoke error: " + e.getMessage());
@@ -361,7 +362,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             if (args.size() > 0) {
                 map = (Map) args.get(1);
             }
-            QtTrackAgent.setPageProperty(getContext(), pageName, map);
+            MobclickAgent.setPageProperty(getContext(), pageName, map);
 
         } catch (Throwable e) {
 
@@ -369,6 +370,6 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
     }
 
     private void onKillProcess(List args) {
-        QtTrackAgent.onKillProcess(getContext());
+        MobclickAgent.onKillProcess(getContext());
     }
 }

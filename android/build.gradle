@@ -35,5 +35,6 @@ android {
 }
 
 dependencies {
-    api 'com.umeng.umsdk:quick-qt-common:1.0.1.beta' // quick tracking 统计SDK
+    api 'com.umeng.umsdk:qt-common:1.3.4.P' // quick tracking 统计SDK
+    api 'com.umeng.umsdk:qt-spm:1.3.4'    // quick tracking 统计SDK SPM插件包
 }
