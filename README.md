@@ -58,7 +58,7 @@ import 'package:qt_common_sdk/qt_common_sdk.dart';
 
 ### Android端
 
-请参考本工程中示例Android 宿主工程中App.java文件(example/android/app/src/main/java/com/aliyun/qt_common_sdk_example/App.java)，给您的flutter工程Android宿主工程增加App类，注意此类必须是 io.flutter.app.FlutterApplication 类的子类。在App类的onCreate生命周期函数内，调用原生统计SDK的预初始化方法QtConfigure.preInit，并传入appkey和渠道参数。
+请参考本工程中示例Android 宿主工程中App.java文件(example/android/app/src/main/java/com/aliyun/qt_common_sdk_example/App.java)，给您的flutter工程Android宿主工程增加App类，注意此类必须是 io.flutter.app.FlutterApplication 类的子类。在App类的onCreate生命周期函数内，调用原生统计SDK的预初始化方法UMConfigure.preInit，并传入appkey和渠道参数。
 
 ![](png/android_p1.png)
 
