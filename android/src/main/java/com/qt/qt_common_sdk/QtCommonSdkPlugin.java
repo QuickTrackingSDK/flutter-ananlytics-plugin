@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.quick.qt.analytics.QtTrackAgent;
 import com.quick.qt.commonsdk.QtConfigure;
+import com.quick.qt.spm.SpmAgent;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -347,7 +348,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
     private void updateCurSpm(List args) {
         try {
             String curSpm = (String) args.get(0);
-            QtTrackAgent.updateCurSpm(getContext(), curSpm);
+            SpmAgent.updateCurSpm(getContext(), curSpm);
             Log.i("UMLog", "updateCurSpm: curSpm = " + curSpm);
         } catch (Throwable e) {
             Log.e("UMLog", "updateCurSpm invoke error: " + e.getMessage());

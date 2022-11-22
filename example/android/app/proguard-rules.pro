@@ -20,7 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.qt.** {*;}
+-keep class com.quick.qt.** {*;}
+-keep class rpk.quick.qt.** {*;}
 
 -keepclassmembers class * {
    public <init> (org.json.JSONObject);
