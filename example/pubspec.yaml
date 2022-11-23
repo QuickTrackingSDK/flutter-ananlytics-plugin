@@ -11,6 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_webview_plugin: ^0.4.0
 
   qt_common_sdk:
     # When depending on this package from a real application you should use:

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.5" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <!-- <meta name="aplus-vt-cfg-url" content="https://alidt.alicdn.com/alilog/vt/web/8noknyd7kscbd711r8ap23ak/65572203159703.json"> -->
+  <!-- <meta name="aplus-vt-cfg-url" content="https://alidt.alicdn.com/alilog/vt/web/8noknyd7kscbd711r8ap23ak/66502205163613.json"> -->
+  <!-- <meta name="aplus-heatmap-enabled" content="true" />
+  <meta name="aplus-rate-ahot" content="1"/> -->
+  <!-- <meta name="aplus-vt-cfg-url" content="https://alidt.alicdn.com/alilog/vtdaily/web/0kowetdn0lepln4575kl3ruj/13852202105182.json"> -->
+  <title>React App</title>
+  
+  <script charset="UTF-8" id="testsdk">
+
+    // (function(w, d, s, q, i) {
+    //   w[q] = w[q] || [];
+    //   var f = d.getElementsByTagName(s)[0],j = d.createElement(s);
+    //   j.async = true;
+    //   j.id = 'beacon-aplus';
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204442001.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/203731415.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204344376.js?spm=loginner.24374736.0.0.7eee717d1PHeWK&file=204344376.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/203731415.js?spm=loginner.24374736.0.0.2a21717drz97SA&file=203731415.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/203966022.js";
+    //   // j.src = './aplus_cloud_um.js';
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus.js?id=203252199";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204290003.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204290003.js?spm=loginner.24374736.0.0.75a8370dqeU2RO&file=204290003.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204399725.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204287288.js?spm=loginner.24374736.0.0.6da6717dpEOV4Q&file=204287288.js";
+    //   // j.src = "./aplus_cloud_um.js";
+    //   // j.src = "https://public-res.kye-erp.com/bigdata/kyelog/aplus_web_v4_md5_5ed3.js?t=1653634211099";
+    //   // j.src = "https://public-res.kye-erp.com/bigdata/kyelog/aplus_web_v4_md5_5ed3.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204490144.js";
+    //   j.src  = './aplus_cloud_um.js';
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204490144.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/203660523.js?spm=loginner.24374736.0.0.26ac717did4c5p&file=203660523.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/203660523.js";
+    //   // j.src = 'https://public-res.kye-erp.com/bigdata/kyelog/aplus_web_v4_md5_5ed3.js';
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/203660523.js?spm=loginner.24374736.0.0.26ac717dKJT9VZ&file=203660523.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204233981.js?spm=loginner.24374736.0.0.7af9717dRknfWC&file=204233981.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204237414.js?spm=loginner.24374736.0.0.7c24717dCIl1aa&file=204237414.js";
+    //   // j.src = 'https://d.alicdn.com/alilog/mlog/aplus/204237414.js?spm=loginner.24374736.0.0.7c24717dGDioSo&file=204237414.js';
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204237414.js?spm=loginner.24374736.0.0.7c24717dnipXIg&file=204237414.js";
+    //   // j.src = "./aplus_cloud.js";
+    //   // 带设备指纹 和 远程控制
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204207362.js?spm=loginner.24374736.0.0.1f51717dDsNe8r&file=204207362.js";
+    //   // 不带
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204093703.js?spm=loginner.24374736.0.0.497c717dGvvSjM&file=204093703.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/203660523.js";
+    //   // j.src = "https://public-res.kye-erp.com/bigdata/kyelog/aplus_web_v3_md5_43a0.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204093703.js?spm=loginner.24374736.0.0.497c717di0Cak9&file=204093703.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204184784.js?spm=loginner.24374736.0.0.4b78717dc07Dy6&file=204184784.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/203660523.js";
+    //   // j.src = "https://aplus.aliyun.com/alilog/mlog/aplus/203561150.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/203825477.js";
+    //   // j.src = "https://d.alicdn.com/alilog/mlog/aplus/203825477.js";
+    //   w.aplus = {};
+    //   f.parentNode.insertBefore(j, f);
+    // })(window, document, 'script', 'aplus_queue', '204093703');
+
+    (function(w, d, s, q, i) {
+      w[q] = w[q] || [];
+      var f = d.getElementsByTagName(s)[0],j = d.createElement(s);
+      j.async = true;
+      j.id = 'beacon-aplus';
+      // j.src = 'https://d.alicdn.com/alilog/mlog/aplus/204093703.js?spm=loginner.24374736.0.0.6e50717dkkA4Rq&file=204093703.js';
+      // j.src = "https://d.alicdn.com/alilog/mlog/aplus/203419397.js";
+      // j.src = "https://d.alicdn.com/alilog/mlog/aplus/204490144.js";
+      // j.src = "https://d.alicdn.com/alilog/mlog/aplus/203660523.js";
+       j.src = "./aplus_cloud_um.js";
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'aplus_queue', '');
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-waiting', 'MAN']
+    // });
+
+    //假设 存在 三个页面
+    //http://localhost:5900?search=abc  //自动pv 被过滤
+    //http://localhost:5900#activity    //自动pv 被过滤
+    //http://localhost:5900#testpage1   //自动pv 不会过滤
+    //原理：依赖子字符串匹配
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-skip-apv-rules', ['sea', 'acti']]
+    // });
+    
+    aplus_queue.push({
+      action: 'aplus.setMetaInfo',
+      arguments: ['DEBUG', true]
+    })
+
+    aplus_queue.push({
+      action: 'aplus.setMetaInfo',
+      arguments: ['appKey', 'test_appkey'] //钰昭组织 h5_demo
+    });
+
+    aplus_queue.push({
+      action: 'aplus.setMetaInfo',
+      arguments: ['aplus-rhost-v', 'log-api.aplus.emas-poc.com']
+    });
+
+
+
+    // aplus_queue.push({
+    //   action: "aplus.setMetaInfo",
+    //   arguments: ['aplus-jsbridge-only', true]
+    // })
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-rhost-g', 'aplus2-web-api.emas-poc.com']
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['_anony_id', 'test_oid']
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['openid', 'test_open_id']
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['_user_id', 'test_user_id']
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['_user_nick', 'test_user_nick']
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['globalproperty', {
+    //     b: null
+    //   }]
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-disable-apv', true]
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-autotrack-config', {
+    //     collect_tags: {
+    //       li: true,
+    //       img: true,
+    //       svg: true,
+    //       div: true,
+    //       span: true,
+    //       p: true,
+    //       form: true
+    //     },
+    //     collect_input: true,
+    //     // element_capture_enable: true
+    //   }]
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-autotrack-enabled', true]
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-heatmap-enabled', false]
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-pagename', "test_pagename_meta"]
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['pageConfig', {
+    //     // hashMode: true,
+    //     '#/solutionsCenter': {
+    //       pageName: 'hash_home_page_test',
+    //       regRule: /#\/solutionsCenter\/solutionList/,
+    //       skipMe: true
+    //     },
+    //     '/activity': {
+    //       pageName: 'activity_page_test',
+    //       skipMe: true
+    //     },
+    //     '#/testother': {
+    //       pageName: 'hash_home_page_test',
+    //       regRule: /#\/solutionsCenter\/solutionList/,
+    //       skipMe: true
+    //     },
+    //     '/': {
+    //       pageName: 'test_home_1111',
+    //       skipMe: true
+    //     },
+    //     '/autotrack': {
+    //       pageName: 'autotrack_page_test',
+    //     }
+    //   }]
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-auto-clk', [{
+    //     cssSelector: '.autotrack_clk_web',
+    //     logkey: 'autotrack_clk_web',
+    //     // props: ['data-pagename', 'data-b', "data-abc", "data-ddddd"]
+    //   }]]
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-auto-exp', [{
+    //     cssSelector: '.autotrack_exp_web',
+    //     logkey: 'autotrack_exp_web',
+    //     // props: ['data-a', "data-b"]
+    //   }]]
+    // });
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-auto-clk-userfn', function(e, selector) {       
+    //     if (selector.indexOf('autotrack_clk_web') != -1) {
+    //       var dataset = e.dataset;
+    //       var obj = {};
+    //       obj.itemID = dataset.itemid;
+    //       obj.itemName = dataset.itemname;
+    //       obj.itemZoon = dataset.itemzoon;
+    //       obj.promotionInformation = dataset.promotioninformation;
+    //       obj.pageName = dataset.pagename;          
+    //       return {
+    //         userdata: obj
+    //       };
+    //     }
+    //   }]
+    // })
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-auto-exp-userfn', function(e, selector) {
+    //     if (selector.indexOf('autotrack_exp_web') != -1) {
+    //       var dataset = e.dataset;
+    //       var obj = {};
+    //       obj.itemID = dataset.itemid;
+    //       obj.itemName = dataset.itemname;
+    //       obj.itemZoon = dataset.itemzoon;
+    //       obj.promotionInformation = dataset.promotioninformation;
+    //       obj.pageName = dataset.pagename;          
+    //       return {
+    //         userdata: obj
+    //       };
+    //     }
+    //   }]
+    // })
+
+
+    // window.onload = function(){
+    //   var iframe2 = document.getElementById('iframe2');
+
+    //   aplus_queue.push({
+    //     action: 'aplus.aplus_pubsub.subscribe',
+    //     arguments: ['mw_change_pv', function (content) {
+    //       console.log('yz-----status pv', content);
+  
+    //       iframe2.contentWindow.postMessage({
+    //         sender: 'pv',
+    //       }, '*');
+    //     }]
+    //   })
+  
+    //   aplus_queue.push({
+    //     action: 'aplus.aplus_pubsub.subscribe',
+    //     arguments: ['mw_change_hjlj', function (content) {
+    //       console.log('yz-----status hjlj', content);
+    //       iframe2.contentWindow.postMessage({
+    //         sender: 'hjlj',
+    //       }, '*');
+    //     }]
+    //   })
+    // }
+
+
+    // aplus_queue.push({
+    //   action: 'aplus.setMetaInfo',
+    //   arguments: ['aplus-vt-cfg-url', '<已发布的配置CDN-JSON地址>']
+    // });
+  </script>
+  <script>
+    function testClk2() {
+      console.log('yz-----testClk2');
+    }
+    
+    function push(action, args) {
+      window.aplus_queue.push({
+        action: action,
+        arguments: args
+      });
+    };
+
+    function testClk() {
+      push('aplus.record', ['test_clk', 'CLK', {a:1 ,b: 2}])
+    }
+
+    function sendPV(args)  {
+      push('aplus.sendPV', [{is_auto:false}, {ts:111}]);
+    };
+  </script>
+</head>
+
+<body>
+  <div id="root" >
+    <div name="代码埋点">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <button onclick="testClk()">发送事件</button>
+      <button onclick="sendPV()">发送PV</button>
+    </div>
+  </div>
+</body>
+
+</html>

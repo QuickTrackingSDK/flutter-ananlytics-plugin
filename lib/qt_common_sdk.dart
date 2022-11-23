@@ -261,4 +261,9 @@ class QTCommonSdk {
   static void onKillProcess() {
     _channel.invokeMethod('onKillProcess');
   }
+
+  static void onJSCall(String msg) {
+    List<dynamic> args = [msg];
+    _channel.invokeMethod('onJSCall', args);
+  }
 }

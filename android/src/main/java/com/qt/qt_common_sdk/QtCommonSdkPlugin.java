@@ -159,6 +159,10 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
                     onKillProcess(args);
                     result.success(null);
                     break;
+                case "onJSCall":
+                    onJSCall(args);
+                    result.success(null);
+                    break;
                 default:
                     result.notImplemented();
                     break;
@@ -371,5 +375,15 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
 
     private void onKillProcess(List args) {
         QtTrackAgent.onKillProcess(getContext());
+    }
+
+    private void onJSCall(List args) {
+        try {
+            String msg = (String) args.get(0);
+            SpmAgent.CALL(msg);
+            Log.i("UMLog", "onJSCall: msg = " + msg);
+        } catch (Throwable e) {
+            Log.e("UMLog", "onJSCall invoke error: " + e.getMessage());
+        }
     }
 }
