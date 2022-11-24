@@ -1,8 +1,8 @@
 #import "QTCommonSdkPlugin.h"
-#import <QTCommon/QTConfigure.h>
-#import <QTCommon/QTMobClick.h>
-#import <QTCommon/QTSpm.h>
-#import <QTCommon/QTSpmHybrid.h>
+#import <QTCommon/UMConfigure.h>
+#import <QTCommon/MobClick.h>
+#import <QTCommon/UMSpm.h>
+#import <QTCommon/UMSpmHybrid.h>
 
 @interface QTflutterpluginForQTCommon : NSObject
 @end
@@ -184,27 +184,104 @@
 
     if ([@"skipMe" isEqualToString:call.method]){
         NSString* pageName = arguments[0];
-        [QTSpmHybrid skipMe:nil pageName:pageName];
+        [UMSpmHybrid skipMe:nil pageName:pageName];
         //result(@"success");
     }
     else if ([@"setPageProperty" isEqualToString:call.method]){
         NSString* pageName = arguments[0];
         NSDictionary* dic = arguments[1];
-        [QTSpm updatePageProperties:pageName properties:dic];
+        [UMSpm updatePageProperties:pageName properties:dic];
     }
     else if ([@"updateCurSpm" isEqualToString:call.method]){
         NSString* curSPM = arguments[0];
-        [QTSpm updateCurSPM:curSPM];
+        [UMSpm updateCurSPM:curSPM];
     }
-    else if ([@"updateNextPageProperties" isEqualToString:call.method]){
-        NSDictionary* dic = arguments[0];
-        [QTSpm updateNextPageProperties:dic];
+    else if ([@"onJSCall" isEqualToString:call.method]){
+        NSString* jsMsg = arguments[0];
+        NSDictionary *params = [self JSONValue:jsMsg];
+        Class _UMSpmPageModelManager = NSClassFromString(@"UMSpmPageModelManager");
+        if (_UMSpmPageModelManager){
+            id manager = [self reflectObject:_UMSpmPageModelManager selector:@"shareInstance"];
+            if(manager){
+                [self reflectObject:manager selector:@"callDicFromJS:webView:" object:params object:nil];
+            }
+        }
     }
     else{
         resultCode = NO;
     }
     return resultCode;
 }
+
++ (BOOL)notEmptyString:(NSString *)string
+{
+    BOOL bRet = YES;
+    if ((string == nil) ||
+        (string == NULL) ||
+        ([string isKindOfClass:[NSNull class]]) ||
+        (![string isKindOfClass:[NSString class]]) ||
+        (([string isKindOfClass:[NSString class]])&&([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0)))
+    {
+        bRet = NO;
+    }
+    return bRet;
+}
+
++ (BOOL)isEmptyString:(NSString *)string
+{
+    return ![self notEmptyString:string];
+}
+
++ (id)reflectObject:(id)obj selector:(NSString *)method
+{
+    if (![obj isKindOfClass:[NSObject class]] || [self isEmptyString:method]) {
+        return nil;
+    }
+    
+    SEL sel = NSSelectorFromString(method);
+    if (sel && [obj respondsToSelector:sel] ) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        return  [obj performSelector:sel];
+#pragma clang diagnostic pop
+    }
+    else{
+        return nil;
+    }
+}
+
+
++ (id)reflectObject:(id)obj selector:(NSString *)method object:(id)object1 object:(id)object2
+{
+    if (![obj isKindOfClass:[NSObject class]] ||
+        [self isEmptyString:method] ||
+        ![object1 isKindOfClass:[NSObject class]]) {
+        return nil;
+    }
+    
+    SEL sel = NSSelectorFromString(method);
+    if (sel && [obj respondsToSelector:sel] ) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        return [obj performSelector:sel withObject:object1 withObject:object2];
+#pragma clang diagnostic pop
+    }
+    else{
+        return nil;
+    }
+}
+
++ (id)JSONValue:(NSString *)string
+{
+    id result = nil;
+    if (string&&string.length > 0)
+    {
+        NSError* error = nil;
+        result = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error]; //NSJSONReadingAllowFragments  kNilOptions
+    }
+    return result;
+}
+
 @end
 
 
