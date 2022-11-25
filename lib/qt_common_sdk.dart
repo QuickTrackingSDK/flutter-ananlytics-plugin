@@ -262,6 +262,10 @@ class QTCommonSdk {
     _channel.invokeMethod('onKillProcess');
   }
 
+  //
+  // QT JS SDK通过flutter_webview_plugin插件将JS层统计数据发送到flutter层JavascriptChannel接口
+  // 时需调用此接口，具体示例代码见example/lib/main.dart 第15行~第23行 写法。
+  //
   static void onJSCall(String msg) {
     List<dynamic> args = [msg];
     _channel.invokeMethod('onJSCall', args);

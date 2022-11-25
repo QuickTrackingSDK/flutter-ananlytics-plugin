@@ -105,16 +105,16 @@ import 'package:qt_common_sdk/qt_common_sdk.dart';
 没有特别标注的接口或者参数即为Android和iOS双端通用。
 
 ``` dart
-///
+  ///
   /// 设置上报统计日志的主域名和备用域名。此函数必须在SDK初始化函数调用之前调用。
   ///
   /// @param primaryDomain String 主域名.
   /// @param standbyDomain String 备用域名 上传日志备用域名收数地址,参数可以为null或者空串，若此参数为空，SDK内部会自动将主域名设置为备用域名。
   ///
   ///
-static void setCustomDomain(String primaryDomain, String standbyDomain)
+  static void setCustomDomain(String primaryDomain, String standbyDomain)
 
-///
+  ///
   /// 初始化
   ///
   /// @param androidAppkey String 开发者申请的android appkey。android特有，Android端填写
@@ -122,122 +122,186 @@ static void setCustomDomain(String primaryDomain, String standbyDomain)
   /// @param channel String 渠道标识，可设置nil表示"App Store".
   ///
   ///
-static Future<dynamic> initCommon(String androidAppkey, String iosAppkey, String channel)
+  static Future<dynamic> initCommon(String androidAppkey, String iosAppkey, String channel)
 
-///
+  ///
   /// 自定义app版本号，默认获取version，只可设置一次建议在所有接口之前调用
   ///
   /// @param appVersion String 自定义版本号
   /// @param appVersionCode int 对应Android应用版本号versionCode，仅Android端会使用此参数，Android特有
   ///
-static void setAppVersion (String appVersion, int appVersionCode) 
+  static void setAppVersion (String appVersion, int appVersionCode) 
 
-///
+  ///
   /// 设置是否在console输出sdk的调试日志
   ///
   /// @param bFlag bool 设置为flase(不输出log); 设置为true, 输出可供调试参考的log信息，
   /// SDK内部默认此开关关闭，App正式上线前需将日志开关关闭。
   ///
   ///
-static void setLogEnabled (bool bFlag)
+  static void setLogEnabled (bool bFlag)
 
-///
+  ///
   /// 自定义事件
   ///
   /// @param event String 事件Id.
   /// @param properties Map 自定义参数.
   ///
-static void onEvent(String event, Map<String,dynamic> properties)
+  static void onEvent(String event, Map<String,dynamic> properties)
 
-///
+  ///
   /// @param event String 事件Id.
   /// @param pageName String 页面名称.
   /// @param properties Map 自定义参数.
   ///
-static void onEventWithPage(String event,String pageName, Map<String,dynamic> properties)
+  static void onEventWithPage(String event,String pageName, Map<String,dynamic> properties)
 
-///
+  ///
   /// 账号统计登录
   ///
   /// @param userID String user's ID
   ///
   ///
-static void onProfileSignIn(String userID)
+  static void onProfileSignIn(String userID)
 
-///
+  ///
   /// 账号统计登录
   ///
   /// @param userID String user's ID
   /// @param provider String user's provider
   ///
-static void onProfileSignInEx(String userID, String provider)
+  static void onProfileSignInEx(String userID, String provider)
 
-///
+  ///
   /// 账号统计登出
   ///
   ///
-static void onProfileSignOff ()
+  static void onProfileSignOff ()
 
-///
+  ///
   /// 页面统计: 页面开始显示时调用
   ///
   /// @param viewName String 页面名称
   ///
   ///
-static void onPageStart(String viewName)
+  static void onPageStart(String viewName)
 
-///
+  ///
   /// 页面统计：页面消失时调用
   ///
   /// @param viewName String 页面名称
   ///
   ///
-static void onPageEnd(String viewName)
+  static void onPageEnd(String viewName)
 
-///
+  ///
   /// 设置页面属性.
   ///
   /// @param pageName String 页面名称
   /// @param properties Map 自定义参数
   ///
-static void setPageProperty(String pageName, Map<String,dynamic> properties)
+  static void setPageProperty(String pageName, Map<String,dynamic> properties)
 
-///
+  ///
   /// 注册全局属性
   ///
   /// @param properties Map 自定义参数
   ///
   ///
-static void registerGlobalProperties(Map<String,dynamic> properties)
+  static void registerGlobalProperties(Map<String,dynamic> properties)
 
-///
+  ///
   /// 删除一个全局属性
   ///
   /// @param propertyName String 自定义参数key
   ///
   ///
-static void unregisterGlobalProperty(String propertyName)
+  static void unregisterGlobalProperty(String propertyName)
 
-///
+  ///
   /// 获取全局属性
   ///
   ///
-static Future<String>? get getGlobalProperties async
+  static Future<String>? get getGlobalProperties async
 
-///
+  ///
   /// 获取一个全局属性值
   ///
   ///
-static Future<dynamic>? getGlobalProperty(String propertyName) async
+  static Future<dynamic>? getGlobalProperty(String propertyName) async
 
-///
+  ///
   /// 清除全局属性
   ///
-static void clearGlobalProperties() 
+  static void clearGlobalProperties() 
 
+  ///
+  /// 跳过当前页面统计.
+  ///
+  /// @param pageName String 页面名称
+  ///
+  ///
+  static void skipMe(String pageName) 
+  
+  ///
+  /// 设置页面属性.
+  ///
+  /// @param pageName String 页面名称
+  /// @param properties Map 自定义参数
+  ///
+  static void setPageProperty(String pageName, Map<String,dynamic> properties)
+  
+  //
+  // QT JS SDK通过flutter_webview_plugin插件将JS层统计数据发送到flutter层JavascriptChannel接口
+  // 时需调用此接口，具体示例代码见example/lib/main.dart 第15行~第23行 写法。
+  //
+  static void onJSCall(String msg)
+  
+  ///
+  /// 应用如果以强杀死自身进程方式暴力退出，
+  /// 则需要在自杀前调用此接口，此接口为Android端特有
+  ///
+  ///
+  static void onKillProcess()
 
 ```
 
+## flutter\_webview\_plugin插件配合QT JS SDK桥接使用说明
+
+在flutter工程使用社区flutter\_webview\_plugin(支持版本0.4.0+) + H5做混合开发时，如果在H5页面中集成了QuickTracking JS版本统计SDK，则通过使用onJSCall接口API，支持将QT JS SDK的统计数据透传至
+Android/iOS原生统计SDK，由原生统计SDK上报JS SDK统计数据。
+
+开发者需要参考示例工程example/lib/main.dart 第15行~第23行 写法。给flutter\_webview\_plugin插件注册一个名为'Umeng4AplusFlutter'的JS bridge通过，然后在onMessageReceived: (JavascriptMessage message)回调函数中调用QTCommonSdk.onJSCall(message.message);
+
+如下示例代码可以在example/lib/main.dart文件中找到。
+
+``` dart
+
+// 定义一个名为'Umeng4AplusFlutter'的JS bridge通道回调对象
+final Set<JavascriptChannel> jsChannels = [
+  JavascriptChannel(
+      name: 'Umeng4AplusFlutter',
+      onMessageReceived: (JavascriptMessage message) {
+        // print(message.message);
+        QTCommonSdk.onJSCall(message.message);
+      }),
+].toSet();
+
+//..........
+
+// 开启flutter webview 插件对象时将js bridge对象注册上
+flutterWebViewPlugin.launch(
+                  selectedUrl,
+                  javascriptChannels: jsChannels,
+                  rect: Rect.fromLTWH(
+                      0.0, 0.0, MediaQuery.of(context).size.width, 300.0),
+                  userAgent: kAndroidUserAgent,
+                  invalidUrlRegex:
+                      r'^(https).+(twitter)', // prevent redirecting to twitter when user click on its icon in flutter website
+                );
+                
+              
+```
 
 
 **注意** : 需要先调用 QTConfigure.init 来初始化插件（Appkey可在统计后台 “管理->应用管理->应用列表” 页面查看，或在 “我的产品”选择某应用->设置->应用信息 查看Appkey），才能保证其他功能正常工作。
