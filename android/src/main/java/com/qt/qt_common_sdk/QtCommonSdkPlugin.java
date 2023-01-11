@@ -258,7 +258,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
         try {
             String userID = (String) args.get(0);
             String provider = (String) args.get(1);
-            QtTrackAgent.onProfileSignIn(userID, provider);
+            QtTrackAgent.onProfileSignIn(provider, userID);
             Log.i("UMLog", "onProfileSignIn:" + userID);
         } catch (Throwable e) {
             Log.e("UMLog", "onProfileSignInEx invoke error: " + e.getMessage());
