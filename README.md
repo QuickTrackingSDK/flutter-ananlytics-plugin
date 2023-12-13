@@ -206,6 +206,8 @@ import 'package:qt_common_sdk/qt_common_sdk.dart';
   /// 注册全局属性
   ///
   /// @param properties Map 自定义参数
+  /// 如果和已经存在的全局属性key重复，则更新已有值；
+  /// 如果和已经存在的全局属性key不一致，则插入新的全局属性
   ///
   ///
   static void registerGlobalProperties(Map<String,dynamic> properties)
