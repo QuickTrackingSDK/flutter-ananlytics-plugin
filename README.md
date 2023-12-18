@@ -4,27 +4,6 @@
 
 ## 集成Flutter插件
 
-### 自动集成
-
-在您的flutter工程 pubspec.yaml 中加入插件依赖
-
-``` yaml
-# 线上依赖
-
-dependencies:
-  qt_common_sdk: 1.0.0
-  
-```  
-
-**导入**
-
-``` flutter
-import 'package:qt_common_sdk/qt_common_sdk.dart';
-
-```
-
----
-
 ### 手动集成
 
 *  下载本工程git库，删除工程目录下.git隐藏目录。
