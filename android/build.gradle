@@ -5,7 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven { url 'https://repo1.maven.org/maven2/'}
+        maven { url 'https://maven.aliyun.com/repository/central' }
     }
 
     dependencies {
@@ -17,7 +17,7 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'https://repo1.maven.org/maven2/'}
+        maven { url 'https://maven.aliyun.com/repository/central' }
     }
 }
 
@@ -35,5 +35,5 @@ android {
 }
 
 dependencies {
-    api 'com.umeng.umsdk:qt-px-common:1.3.9.PX' // Quick Tracking统计SDK
+    api 'com.lydaas.qtsdk:qt-px-common:1.5.1.PX' // Quick Tracking统计SDK
 }
