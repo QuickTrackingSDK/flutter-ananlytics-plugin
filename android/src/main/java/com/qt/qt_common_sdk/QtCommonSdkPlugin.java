@@ -1,6 +1,7 @@
 package com.qt.qt_common_sdk;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -11,8 +12,6 @@ import com.quick.qt.spm.SpmAgent;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
-
-import android.util.Log;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
@@ -42,7 +41,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             Class<?> agent = Class.forName("com.quick.qt.analytics.QtTrackAgent");
             Method[] methods = agent.getDeclaredMethods();
             for (Method m : methods) {
-//                Log.e("QTFlutterLog", "Reflect:" + m);
+                Log.e("QTFlutterLog", "Reflect:" + m);
                 if (m.getName().equals("onEventObject")) {
                     versionMatch = true;
                     break;
@@ -93,6 +92,14 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
                     break;
                 case "initCommon":
                     initCommon(args);
+                    result.success(null);
+                    break;
+                case "setCustomDomain":
+                    setCustomDomain(args);
+                    result.success(null);
+                    break;
+                case "setLogEnabled":
+                    setLogEnabled(args);
                     result.success(null);
                     break;
                 case "setAppVersion":
@@ -205,6 +212,25 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             Log.i("QTFlutterLog", "initCommon:" + appkey + "@" + channel);
         } catch (Throwable e) {
             Log.e("QTFlutterLog", "initCommon invoke error: " + e.getMessage());
+        }
+    }
+
+    private void setCustomDomain(List args) {
+        try {
+            String domain = (String) args.get(0);
+            String subDomain = (String) args.get(1);
+            QtConfigure.setCustomDomain(domain, subDomain);
+        } catch (Throwable e) {
+            Log.e("QTFlutterLog", "setCustomDomain invoke error: " + e.getMessage());
+        }
+    }
+
+    private void setLogEnabled(List args) {
+        try {
+            boolean enable = (boolean) args.get(0);
+            QtConfigure.setLogEnabled(enable);
+        } catch (Throwable e) {
+            Log.e("QTFlutterLog", "setLogEnabled invoke error: " + e.getMessage());
         }
     }
 
@@ -409,7 +435,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
     private Object getDeviceId() {
         Object deviceId = null;
         try {
-            deviceId = QtConfigure.getUMIDString();
+            deviceId = QtConfigure.getUMIDString(getContext());
         } catch (Throwable e) {
             Log.e("QTFlutterLog", "getDeviceId invoke error: " + e.getMessage());
         }
@@ -419,7 +445,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
     private void updateNextPageProperties(List args) {
         try {
             Map params = (Map) args.get(0);
-            SpmAgent.updateNextPageProperties(getContext(), map);
+            SpmAgent.updateNextPageProperties(params);
         } catch (Throwable e) {
             Log.e("QTFlutterLog", "updateNextPageProperties invoke error: " + e.getMessage());
         }

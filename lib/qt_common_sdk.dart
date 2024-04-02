@@ -4,8 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class QTCommonSdk {
-  static const MethodChannel _channel =
-      const MethodChannel('qt_common_sdk');
+  static const MethodChannel _channel = const MethodChannel('qt_common_sdk');
 
   static Future<String?> get platformVersion async {
     final String? version = await _channel.invokeMethod('getPlatformVersion');
@@ -67,6 +66,8 @@ class QTCommonSdk {
   ///
   static void onEvent(String event, Map<String,dynamic> properties) {
     List<dynamic> args = [event,properties];
+    print("current event === $event");
+    print("properties === $properties");
     _channel.invokeMethod('onEvent', args);
   }
 

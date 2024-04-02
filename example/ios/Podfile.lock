@@ -1,0 +1,35 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_webview_plugin_ios_android (0.0.1):
+    - Flutter
+  - qt_common_sdk (1.0.0):
+    - Flutter
+    - QTCommon (= 1.5.2.PX)
+  - QTCommon (1.5.2.PX)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_webview_plugin_ios_android (from `.symlinks/plugins/flutter_webview_plugin_ios_android/ios`)
+  - qt_common_sdk (from `.symlinks/plugins/qt_common_sdk/ios`)
+
+SPEC REPOS:
+  trunk:
+    - QTCommon
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_webview_plugin_ios_android:
+    :path: ".symlinks/plugins/flutter_webview_plugin_ios_android/ios"
+  qt_common_sdk:
+    :path: ".symlinks/plugins/qt_common_sdk/ios"
+
+SPEC CHECKSUMS:
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_webview_plugin_ios_android: 72ac359f16e52e162a8ff359c5d36ec5379718f4
+  qt_common_sdk: ad57aad45f2db0a85fda17499855cb8d1439b17e
+  QTCommon: b1afa69d83bfd5373b7ba7035ae37c2aeb8e2873
+
+PODFILE CHECKSUM: 6c9b312373a19f014986d687f822ebe1eb2b4a29
+
+COCOAPODS: 1.12.1

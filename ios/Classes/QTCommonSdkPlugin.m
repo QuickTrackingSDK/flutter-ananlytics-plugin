@@ -127,18 +127,19 @@
 + (BOOL)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result{
     BOOL resultCode = YES;
     NSArray* arguments = (NSArray *)call.arguments;
+
     if ([@"onEvent" isEqualToString:call.method]){
         NSString* eventName = arguments[0];
         NSDictionary* properties = arguments[1];
         [QTMobClick event:eventName attributes:properties];
-        //result(@"success");
+        result(@"success");
     }
     if ([@"onEventWithPage" isEqualToString:call.method]){
         NSString* eventName = arguments[0];
         NSString* pageName = arguments[1];
         NSDictionary* properties = arguments[2];
         [QTMobClick event:eventName pageName:pageName attributes:properties];
-        //result(@"success");
+        result(@"success");
     }
     else if ([@"onProfileSignIn" isEqualToString:call.method]){
         NSString* userID = arguments[0];

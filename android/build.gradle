@@ -5,7 +5,9 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://repo1.maven.org/maven2/'}
         maven { url 'https://maven.aliyun.com/repository/central' }
+
     }
 
     dependencies {
@@ -17,7 +19,9 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://repo1.maven.org/maven2/'}
         maven { url 'https://maven.aliyun.com/repository/central' }
+
     }
 }
 
@@ -27,7 +31,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 24
     }
     lintOptions {
         disable 'InvalidPackage'
@@ -35,5 +39,5 @@ android {
 }
 
 dependencies {
-    api 'com.lydaas.qtsdk:qt-px-common:1.5.1.PX' // Quick Tracking统计SDK
+    implementation 'com.lydaas.qtsdk:qt-px-common:1.6.1.PX' //必选
 }
