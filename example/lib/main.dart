@@ -62,9 +62,9 @@ class _MainPageState extends State<MainPage> {
     initPlatformState();
     if (!sdkHasInit) {
       sdkHasInit = true;
-      QTCommonSdk.setCustomDomain('https://daily1-qlc.aplus.emas-poc.com', '');
+      QTCommonSdk.setCustomDomain('配置收数域名', '');
       QTCommonSdk.setLogEnabled(true);
-      QTCommonSdk.initCommon('pbithprorpn6miitaioyapnr', 'gpsuizmfvtglezs32mi1avec', 'QT');
+      QTCommonSdk.initCommon('配置Android应用appkey', '配置iOS应用appkey', 'QT');
     }
   }
 
