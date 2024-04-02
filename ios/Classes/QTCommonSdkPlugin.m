@@ -54,6 +54,64 @@
 
         [QTConfigure setLogEnabled:enabled];
     }
+    else if ([@"setCustomOpenUdid" isEqualToString:call.method]){
+        //自定义 openUdid
+        NSString* openUdid = arguments[0];
+        [QTConfigure customSetOpenUdidBlock:^NSString *{
+            return openUdid;
+        }];
+    }
+    else if ([@"setCustomIdfa" isEqualToString:call.method]){
+        //自定义 idfa
+        NSString* idfa = arguments[0];
+        [QTConfigure customSetIdfaBlock:^NSString *{
+            return idfa;
+        }];
+    }
+    else if ([@"setCustomIdfv" isEqualToString:call.method]){
+        //自定义 idfv
+        NSString* idfv = arguments[0];
+        [QTConfigure customSetIdfvBlock:^NSString *{
+            return idfv;
+        }];
+    }
+    else if ([@"setCustomUtdid" isEqualToString:call.method]){
+        //自定义 utdid
+        NSString* utdid = arguments[0];
+        [QTConfigure customSetUtdidBlock:^NSString *{
+            return utdid;
+        }];
+    }
+    else if ([@"setCustomMcc" isEqualToString:call.method]){
+        //自定义 mcc
+        NSString* mcc = arguments[0];
+        [QTConfigure customSetMccBlock:^NSString *{
+            return mcc;
+        }];
+    }
+    else if ([@"setCustomMnc" isEqualToString:call.method]){
+        //自定义 mnc
+        NSString* mnc = arguments[0];
+        [QTConfigure customSetMncBlock:^NSString *{
+            return mnc;
+        }];
+    }
+    else if ([@"setCustomLocalIP" isEqualToString:call.method]){
+        //自定义 local_ip
+        NSString* localIP = arguments[0];
+        [QTConfigure customSetLocalIpBlock:^NSString *{
+            return localIP;
+        }];
+    }
+    else if ([@"setCustomDeviceId" isEqualToString:call.method]){
+        //自定义 umid
+        //注意：因此功能在未获取umid时生效，本地如果已存在umid，设置后无效。如果本地已获取到umid可以通过卸载重装方式验证此功能。
+        NSString* deviceId = arguments[0];
+        [QTConfigure setCustomDeviceId:deviceId];
+    }
+    else if ([@"getDeviceId" isEqualToString:call.method]){
+        result([QTConfigure umidString]);
+    }
     else{
         resultCode = NO;
     }
@@ -69,18 +127,19 @@
 + (BOOL)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result{
     BOOL resultCode = YES;
     NSArray* arguments = (NSArray *)call.arguments;
+
     if ([@"onEvent" isEqualToString:call.method]){
         NSString* eventName = arguments[0];
         NSDictionary* properties = arguments[1];
         [QTMobClick event:eventName attributes:properties];
-        //result(@"success");
+        result(@"success");
     }
     if ([@"onEventWithPage" isEqualToString:call.method]){
         NSString* eventName = arguments[0];
         NSString* pageName = arguments[1];
         NSDictionary* properties = arguments[2];
         [QTMobClick event:eventName pageName:pageName attributes:properties];
-        //result(@"success");
+        result(@"success");
     }
     else if ([@"onProfileSignIn" isEqualToString:call.method]){
         NSString* userID = arguments[0];
@@ -139,7 +198,7 @@
     else if ([@"reportError" isEqualToString:call.method]){
         NSLog(@"reportError API not existed ");
         //result(@"success");
-     }
+    }
     else{
         resultCode = NO;
     }
@@ -206,6 +265,10 @@
                 [self reflectObject:manager selector:@"callDicFromJS:webView:" object:params object:nil];
             }
         }
+    }
+    else if ([@"updateNextPageProperties" isEqualToString:call.method]){
+        NSDictionary* dic = arguments[0];
+        [UMSpm updateNextPageProperties:dic];
     }
     else{
         resultCode = NO;
@@ -287,19 +350,17 @@
 
 @implementation QTCommonSdkPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  FlutterMethodChannel* channel = [FlutterMethodChannel
-      methodChannelWithName:@"qt_common_sdk"
-            binaryMessenger:[registrar messenger]];
-  QTCommonSdkPlugin* instance = [[QTCommonSdkPlugin alloc] init];
-  [registrar addMethodCallDelegate:instance channel:channel];
+    FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:@"qt_common_sdk" binaryMessenger:[registrar messenger]];
+    QTCommonSdkPlugin* instance = [[QTCommonSdkPlugin alloc] init];
+    [registrar addMethodCallDelegate:instance channel:channel];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  if ([@"getPlatformVersion" isEqualToString:call.method]) {
-    result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
-  } else {
-    //result(FlutterMethodNotImplemented);
-  }
+    if ([@"getPlatformVersion" isEqualToString:call.method]) {
+        result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
+    } else {
+        //result(FlutterMethodNotImplemented);
+    }
 
     BOOL resultCode = [QTflutterpluginForQTCommon handleMethodCall:call result:result];
     if (resultCode) return;

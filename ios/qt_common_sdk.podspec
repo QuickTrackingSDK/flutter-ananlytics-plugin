@@ -4,20 +4,20 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'qt_common_sdk'
-  s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin.'
+  s.version          = '1.0.0'
+  s.summary          = 'QuickTracking Analytics Flutter plugin.'
   s.description      = <<-DESC
 A new Flutter plugin.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://help.aliyun.com/document_detail/201089.html'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'lydaas' => 'changliang.lcl@alibaba-inc.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.platform = :ios, '8.0'
-  s.dependency 'QTCommon', '1.3.9.PX'
+  s.dependency 'QTCommon', '1.5.2.PX'
 
   s.static_framework = true
 

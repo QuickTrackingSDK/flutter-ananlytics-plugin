@@ -1,6 +1,7 @@
 package com.qt.qt_common_sdk;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -11,8 +12,6 @@ import com.quick.qt.spm.SpmAgent;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
-
-import android.util.Log;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
@@ -42,20 +41,20 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             Class<?> agent = Class.forName("com.quick.qt.analytics.QtTrackAgent");
             Method[] methods = agent.getDeclaredMethods();
             for (Method m : methods) {
-//                Log.e("UMLog", "Reflect:" + m);
+                Log.e("QTFlutterLog", "Reflect:" + m);
                 if (m.getName().equals("onEventObject")) {
                     versionMatch = true;
                     break;
                 }
             }
             if (!versionMatch) {
-                Log.e("UMLog", "安卓SDK版本过低，建议升级至8以上");
+                Log.e("QTFlutterLog", "安卓SDK版本过低，建议升级至8以上");
                 //return;
             } else {
-                Log.e("UMLog", "安卓依赖版本检查成功");
+                Log.e("QTFlutterLog", "安卓依赖版本检查成功");
             }
         } catch (Throwable e) {
-            Log.e("UMLog", "SDK版本过低，请升级至8以上" + e.toString());
+            Log.e("QTFlutterLog", "SDK版本过低，请升级至8以上" + e.toString());
             return;
         }
 
@@ -65,9 +64,9 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             method = config.getDeclaredMethod("setWraperType", String.class, String.class);
             method.setAccessible(true);
             method.invoke(null, "flutter", "1.0");
-            android.util.Log.i("UMLog", "setWraperType:flutter1.0 success");
+            android.util.Log.i("QTFlutterLog", "setWraperType:flutter1.0 success");
         } catch (Throwable e) {
-            Log.e("UMLog", "setWraperType:flutter1.0" + e.toString());
+            Log.e("QTFlutterLog", "setWraperType:flutter1.0" + e.toString());
         }
     }
 
@@ -83,7 +82,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
         if (!versionMatch) {
-            Log.e("UMLog", "onMethodCall:" + call.method + ":安卓SDK版本过低，请升级至8以上");
+            Log.e("QTFlutterLog", "onMethodCall:" + call.method + ":安卓SDK版本过低，请升级至8以上");
         }
         try {
             List args = (List) call.arguments;
@@ -93,6 +92,14 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
                     break;
                 case "initCommon":
                     initCommon(args);
+                    result.success(null);
+                    break;
+                case "setCustomDomain":
+                    setCustomDomain(args);
+                    result.success(null);
+                    break;
+                case "setLogEnabled":
+                    setLogEnabled(args);
                     result.success(null);
                     break;
                 case "setAppVersion":
@@ -163,12 +170,22 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
                     onJSCall(args);
                     result.success(null);
                     break;
+                case "setCustomDeviceId":
+                    setCustomDeviceId(args);
+                    break;
+                case "getDeviceId":
+                    Object res = getDeviceId();
+                    result.success(res);
+                    break;
+                case "updateNextPageProperties":
+                    updateNextPageProperties(args);
+                    break;
                 default:
                     result.notImplemented();
                     break;
             }
         } catch (Throwable e) {
-            Log.e("UMLog", "Exception:" + e.getMessage());
+            Log.e("QTFlutterLog", "Exception:" + e.getMessage());
         }
     }
 
@@ -192,9 +209,28 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             String appkey = (String) args.get(0);
             String channel = (String) args.get(2);
             QtConfigure.init(getContext(), appkey, channel, QtConfigure.DEVICE_TYPE_PHONE, null);
-            Log.i("UMLog", "initCommon:" + appkey + "@" + channel);
+            Log.i("QTFlutterLog", "initCommon:" + appkey + "@" + channel);
         } catch (Throwable e) {
-            Log.e("UMLog", "initCommon invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "initCommon invoke error: " + e.getMessage());
+        }
+    }
+
+    private void setCustomDomain(List args) {
+        try {
+            String domain = (String) args.get(0);
+            String subDomain = (String) args.get(1);
+            QtConfigure.setCustomDomain(domain, subDomain);
+        } catch (Throwable e) {
+            Log.e("QTFlutterLog", "setCustomDomain invoke error: " + e.getMessage());
+        }
+    }
+
+    private void setLogEnabled(List args) {
+        try {
+            boolean enable = (boolean) args.get(0);
+            QtConfigure.setLogEnabled(enable);
+        } catch (Throwable e) {
+            Log.e("QTFlutterLog", "setLogEnabled invoke error: " + e.getMessage());
         }
     }
 
@@ -204,7 +240,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             int versionCode = (int) args.get(1);
             QtConfigure.setAppVersion(version, versionCode);
         } catch (Throwable e) {
-            Log.e("UMLog", "setAppVersion invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "setAppVersion invoke error: " + e.getMessage());
         }
     }
 
@@ -222,12 +258,12 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             }
 
             if (map != null) {
-                Log.i("UMLog", "onEvent:" + event + "(" + map.toString() + ")");
+                Log.i("QTFlutterLog", "onEvent:" + event + "(" + map.toString() + ")");
             } else {
-                Log.i("UMLog", "onEvent:" + event);
+                Log.i("QTFlutterLog", "onEvent:" + event);
             }
         } catch (Throwable e) {
-            Log.e("UMLog", "onEventObject invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "onEventObject invoke error: " + e.getMessage());
         }
     }
 
@@ -245,12 +281,12 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
                 QtTrackAgent.onEvent(getContext(), event, pageName);
             }
             if (map != null) {
-                Log.i("UMLog", "onEventWithPage:" + event + "(" + map.toString() + ")");
+                Log.i("QTFlutterLog", "onEventWithPage:" + event + "(" + map.toString() + ")");
             } else {
-                Log.i("UMLog", "onEvent:" + event);
+                Log.i("QTFlutterLog", "onEvent:" + event);
             }
         } catch (Throwable e) {
-            Log.e("UMLog", "onEventObjectWithPage invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "onEventObjectWithPage invoke error: " + e.getMessage());
         }
     }
 
@@ -259,15 +295,15 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             String userID = (String) args.get(0);
             String provider = (String) args.get(1);
             QtTrackAgent.onProfileSignIn(provider, userID);
-            Log.i("UMLog", "onProfileSignIn:" + userID);
+            Log.i("QTFlutterLog", "onProfileSignIn:" + userID);
         } catch (Throwable e) {
-            Log.e("UMLog", "onProfileSignInEx invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "onProfileSignInEx invoke error: " + e.getMessage());
         }
     }
 
     private void onProfileSignOff() {
         QtTrackAgent.onProfileSignOff();
-        Log.i("UMLog", "onProfileSignOff");
+        Log.i("QTFlutterLog", "onProfileSignOff");
     }
 
 
@@ -275,9 +311,9 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
         try {
             String event = (String) args.get(0);
             QtTrackAgent.onPageStart(event);
-            Log.i("UMLog", "onPageStart:" + event);
+            Log.i("QTFlutterLog", "onPageStart:" + event);
         } catch (Throwable e) {
-            Log.e("UMLog", "onPageStart invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "onPageStart invoke error: " + e.getMessage());
         }
     }
 
@@ -285,9 +321,9 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
         try {
             String event = (String) args.get(0);
             QtTrackAgent.onPageEnd(event);
-            Log.i("UMLog", "onPageEnd:" + event);
+            Log.i("QTFlutterLog", "onPageEnd:" + event);
         } catch (Throwable e) {
-            Log.e("UMLog", "onPageEnd invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "onPageEnd invoke error: " + e.getMessage());
         }
     }
 
@@ -299,7 +335,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             }
             QtTrackAgent.registerGlobalProperties(getContext(), map);
         } catch (Throwable e) {
-            Log.e("UMLog", "registerGlobalProperties invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "registerGlobalProperties invoke error: " + e.getMessage());
         }
     }
 
@@ -308,7 +344,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             String propertyName = (String)args.get(0);
             QtTrackAgent.unregisterGlobalProperty(getContext(), propertyName);
         } catch (Throwable e) {
-            Log.e("UMLog", "unregisterGlobalProperty invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "unregisterGlobalProperty invoke error: " + e.getMessage());
         }
     }
 
@@ -323,7 +359,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             result = QtTrackAgent.getGlobalProperty(getContext(), propertyName);
             return result;
         } catch (Throwable e) {
-            Log.e("UMLog", "getGlobalProperty invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "getGlobalProperty invoke error: " + e.getMessage());
         }
         return result;
     }
@@ -334,7 +370,7 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
             result = QtTrackAgent.getGlobalProperties(getContext());
             return result;
         } catch (Throwable e) {
-            Log.e("UMLog", "getGlobalProperties invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "getGlobalProperties invoke error: " + e.getMessage());
         }
         return result;
     }
@@ -343,9 +379,9 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
         try {
             String pageName = (String) args.get(0);
             QtTrackAgent.skipMe(getContext(), pageName);
-            Log.i("UMLog", "skipMe: pageName = " + pageName);
+            Log.i("QTFlutterLog", "skipMe: pageName = " + pageName);
         } catch (Throwable e) {
-            Log.e("UMLog", "skipMe invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "skipMe invoke error: " + e.getMessage());
         }
     }
 
@@ -353,9 +389,9 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
         try {
             String curSpm = (String) args.get(0);
             SpmAgent.updateCurSpm(getContext(), curSpm);
-            Log.i("UMLog", "updateCurSpm: curSpm = " + curSpm);
+            Log.i("QTFlutterLog", "updateCurSpm: curSpm = " + curSpm);
         } catch (Throwable e) {
-            Log.e("UMLog", "updateCurSpm invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "updateCurSpm invoke error: " + e.getMessage());
         }
     }
 
@@ -381,9 +417,37 @@ public class QtCommonSdkPlugin implements FlutterPlugin, MethodCallHandler {
         try {
             String msg = (String) args.get(0);
             SpmAgent.CALL(msg);
-            Log.i("UMLog", "onJSCall: msg = " + msg);
+            Log.i("QTFlutterLog", "onJSCall: msg = " + msg);
         } catch (Throwable e) {
-            Log.e("UMLog", "onJSCall invoke error: " + e.getMessage());
+            Log.e("QTFlutterLog", "onJSCall invoke error: " + e.getMessage());
+        }
+    }
+
+    private void setCustomDeviceId(List args) {
+        try {
+            String deviceId = (String) args.get(0);
+            QtConfigure.setCustomDeviceId(getContext(), deviceId);
+        } catch (Throwable e) {
+            Log.e("QTFlutterLog", "setCustomDeviceId invoke error: " + e.getMessage());
+        }
+    }
+
+    private Object getDeviceId() {
+        Object deviceId = null;
+        try {
+            deviceId = QtConfigure.getUMIDString(getContext());
+        } catch (Throwable e) {
+            Log.e("QTFlutterLog", "getDeviceId invoke error: " + e.getMessage());
+        }
+        return deviceId;
+    }
+
+    private void updateNextPageProperties(List args) {
+        try {
+            Map params = (Map) args.get(0);
+            SpmAgent.updateNextPageProperties(params);
+        } catch (Throwable e) {
+            Log.e("QTFlutterLog", "updateNextPageProperties invoke error: " + e.getMessage());
         }
     }
 }

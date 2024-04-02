@@ -4,8 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class QTCommonSdk {
-  static const MethodChannel _channel =
-      const MethodChannel('qt_common_sdk');
+  static const MethodChannel _channel = const MethodChannel('qt_common_sdk');
 
   static Future<String?> get platformVersion async {
     final String? version = await _channel.invokeMethod('getPlatformVersion');
@@ -67,6 +66,8 @@ class QTCommonSdk {
   ///
   static void onEvent(String event, Map<String,dynamic> properties) {
     List<dynamic> args = [event,properties];
+    print("current event === $event");
+    print("properties === $properties");
     _channel.invokeMethod('onEvent', args);
   }
 
@@ -173,6 +174,8 @@ class QTCommonSdk {
   }
 
 
+
+
   ///
   /// 清除全局属性
   ///
@@ -223,6 +226,23 @@ class QTCommonSdk {
     _channel.invokeMethod('updateNextPageProperties', args);
   }
 
+  ///
+  /// 自定义设备id
+  ///
+  /// @param customDeviceId String
+  ///
+  static void setCustomDeviceId(String customDeviceId) {
+    List<dynamic> args = [customDeviceId];
+    _channel.invokeMethod('setCustomDeviceId', args);
+  }
+
+  ///
+  /// 获取设备id
+  ///
+  ///
+  static Future<dynamic>? getDeviceId() async {
+    return await _channel.invokeMethod("getDeviceId");
+  }
 
 
   ///
@@ -250,6 +270,85 @@ class QTCommonSdk {
   static void isHookPage (bool value) {
     List<dynamic> args = [value];
     _channel.invokeMethod('isHookPage', args);
+  }
+
+  ///
+  /// ios 专有API
+  /// 自定义 openudid 设置
+  ///
+  /// @param customOpenUdid 自定义的 openudid
+  ///
+  ///
+  static void setCustomOpenUdid(String customOpenUdid) {
+    List<dynamic> args = [customOpenUdid];
+    _channel.invokeMethod('setCustomOpenUdid', args);
+  }
+  ///
+  /// ios 专有API
+  /// 自定义 idfa 设置
+  ///
+  /// @param customIdfa 自定义 idfa
+  ///
+  ///
+  static void setCustomIdfa(String customIdfa) {
+    List<dynamic> args = [customIdfa];
+    _channel.invokeMethod('setCustomIdfa', args);
+  }
+  ///
+  /// ios 专有API
+  /// 自定义 idfv 设置
+  ///
+  /// @param customIdfv 自定义 idfv
+  ///
+  ///
+  static void setCustomIdfv(String customIdfv) {
+    List<dynamic> args = [customIdfv];
+    _channel.invokeMethod('setCustomIdfv', args);
+  }
+  ///
+  /// ios 专有API
+  /// 自定义 utdid 设置
+  ///
+  /// @param customUtdid 自定义 utdid
+  ///
+  ///
+  static void setCustomUtdid(String customUtdid) {
+    List<dynamic> args = [customUtdid];
+    _channel.invokeMethod('setCustomUtdid', args);
+  }
+
+  ///
+  /// ios 专有API
+  /// 自定义 mcc 设置
+  ///
+  /// @param customMcc 自定义 mcc
+  ///
+  ///
+  static void setCustomMcc(String customMcc) {
+    List<dynamic> args = [customMcc];
+    _channel.invokeMethod('setCustomMcc', args);
+  }
+  ///
+  /// ios 专有API
+  /// 自定义 mnc 设置
+  ///
+  /// @param customMnc 自定义 mnc
+  ///
+  ///
+  static void setCustomMnc(String customMnc) {
+    List<dynamic> args = [customMnc];
+    _channel.invokeMethod('setCustomMnc', args);
+  }
+  ///
+  /// ios 专有API
+  /// 自定义 localIP 设置
+  ///
+  /// @param customLocalIP 自定义 localIP
+  ///
+  ///
+  static void setCustomLocalIP(String customLocalIP) {
+    List<dynamic> args = [customLocalIP];
+    _channel.invokeMethod('setCustomLocalIP', args);
   }
 
 

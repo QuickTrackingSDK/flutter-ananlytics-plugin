@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:flutter_webview_plugin_ios_android/flutter_webview_plugin_ios_android.dart';
 import 'package:qt_common_sdk/qt_common_sdk.dart';
-
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 const kAndroidUserAgent =
     'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
@@ -62,10 +62,9 @@ class _MainPageState extends State<MainPage> {
     initPlatformState();
     if (!sdkHasInit) {
       sdkHasInit = true;
-      QTCommonSdk.setCustomDomain(
-          'https://log-api-daily.aplus.emas-poc.com', '');
+      QTCommonSdk.setCustomDomain('https://daily1-qlc.aplus.emas-poc.com', '');
       QTCommonSdk.setLogEnabled(true);
-      QTCommonSdk.initCommon('64632267', '12323232', 'QT');
+      QTCommonSdk.initCommon('pbithprorpn6miitaioyapnr', 'gpsuizmfvtglezs32mi1avec', 'QT');
     }
   }
 
@@ -100,14 +99,15 @@ class _MainPageState extends State<MainPage> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0))),
+                    ),
                       child: Text(
                           "onEvent(testEkv, {name:jack, age:18,id_number:5220891219})"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () async {
                         QTCommonSdk.onEvent('testEkv', {
                           'name': 'jack',
@@ -115,132 +115,144 @@ class _MainPageState extends State<MainPage> {
                           'id_number': 5220891219
                         });
                       }),
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0))),
+                    ),
                       child: Text(
                           "registerGlobalProperties({name:jack, age:18, degree:1.6})"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () {
                         QTCommonSdk.registerGlobalProperties(
                             {'name': 'jack', 'age': '18', 'degree': '1.6'});
                       }),
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                      ),
                       child: Text("unregisterGlobalProperty('degree')"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () {
                         QTCommonSdk.unregisterGlobalProperty('degree');
                       }),
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                      ),
                       child: Text("clearGlobalProperties"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () {
                         QTCommonSdk.clearGlobalProperties();
                       }),
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                      ),
                       child: Text("getGlobalProperties()"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () async {
                         var allgp = await QTCommonSdk.getGlobalProperties;
                         print("getGlobalProperties Value===$allgp");
                       }),
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                      ),
                       child: Text("getGlobalPropertie('name')"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () async {
                         var gp = await QTCommonSdk.getGlobalProperty('name');
                         print("getGlobalPropertie Value===$gp");
                       }),
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                      ),
                       child: Text(
                           "onEventWithPage(event1,pageName1, {name:jack, age:18 })"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () {
                         QTCommonSdk.onEventWithPage(
                             'event1', 'pageName1', {'name': 'jack', 'age': 18});
                       }),
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                      ),
                       child: Text("onProfileSignInEx(mike,QQ)"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () {
                         //  QTCommonSdk.onProfileSignIn('jack');
                         QTCommonSdk.onProfileSignInEx('mike', 'QQ');
                       }),
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                      ),
                       child: Text("onProfileSignOff()"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () {
                         QTCommonSdk.onProfileSignOff();
                       }),
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                      ),
                       child: Text("onPageStart(homeView)"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () {
                         QTCommonSdk.onPageStart('homeView');
                       }),
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                      ),
                       child: Text("onPageEnd(homeView)"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () {
                         QTCommonSdk.onPageEnd('homeView');
                       }),
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                      ),
                       child: Text(
                           "setPageProperty('homeView',{'name':'jack', 'age':'20'}"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () {
                         QTCommonSdk.setPageProperty(
                             'homeView', {'name': 'jack', 'age': '20'});
                       }),
-                  FlatButton(
-                      color: Colors.blue,
-                      highlightColor: Colors.blue[700],
-                      colorBrightness: Brightness.dark,
+                  TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0))),
+                      ),
                       child: Text("跳转到webview plugin示例页"),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
                       onPressed: () {
                         Navigator.pushNamed(context, '/webviewdemo');
                       }),
