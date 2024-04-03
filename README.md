@@ -14,10 +14,20 @@
 ``` yaml
 #本地依赖
 
-qt_common_sdk::
+qt_common_sdk:
     path: ../
     
 ```
+
+### 线上依赖
+
+在工程pubspec.yaml中加入 dependencies
+``` yaml
+# 线上依赖
+dependencies:
+  qt_common_sdk: ^2.0.0
+```
+
 
 **导入**
 
@@ -34,11 +44,11 @@ import 'package:qt_common_sdk/qt_common_sdk.dart';
 
 请参考本工程中示例Android 宿主工程中App.java文件(example/android/app/src/main/java/com/aliyun/qt_common_sdk_example/App.java)，给您的flutter工程Android宿主工程增加App类，注意此类必须是 io.flutter.app.FlutterApplication 类的子类。在App类的onCreate生命周期函数内，调用原生统计SDK的预初始化方法QtConfigure.preInit，并传入appkey和渠道参数。
 
-![](png/android_p1.png)
+![](png/android_p1.png)<!-- @IGNORE PREVIOUS: link -->
 
 另外，您还需要在Android宿主工程AndroidManifest.xml清单文件中 application 配置中添加 “android:name”属性，其值为新增的 App 类。如下图：
 
-![](png/android_p2.png)
+![](png/android_p2.png)<!-- @IGNORE PREVIOUS: link -->
 
 注意，预初始化传入的appkey和渠道参数必须和后续在flutter工程的dart代码中调用的SDK正式初始化函数QTCommonSdk.initCommon 传入的第一个参数(Android appkey)和第三个参数(Android 渠道)必须严格一致。
 
