@@ -14,7 +14,7 @@
 ``` yaml
 #本地依赖
 
-qt_common_sdk::
+qt_common_sdk:
     path: ../
     
 ```
