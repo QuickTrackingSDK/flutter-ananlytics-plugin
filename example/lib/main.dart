@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:flutter_webview_plugin_ios_android/flutter_webview_plugin_ios_android.dart';
+// import 'package:flutter_webview_plugin_ios_android/flutter_webview_plugin_ios_android.dart';
 import 'package:qt_common_sdk/qt_common_sdk.dart';
 
 const kAndroidUserAgent =
@@ -13,14 +13,14 @@ const kAndroidUserAgent =
 String selectedUrl = 'file:///android_asset/index.html';
 
 // ignore: prefer_collection_literals
-final Set<JavascriptChannel> jsChannels = [
-  JavascriptChannel(
-      name: 'Umeng4AplusFlutter',
-      onMessageReceived: (JavascriptMessage message) {
-        // print(message.message);
-        QTCommonSdk.onJSCall(message.message);
-      }),
-].toSet();
+// final Set<JavascriptChannel> jsChannels = [
+//   JavascriptChannel(
+//       name: 'Umeng4AplusFlutter',
+//       onMessageReceived: (JavascriptMessage message) {
+//         // print(message.message);
+//         QTCommonSdk.onJSCall(message.message);
+//       }),
+// ].toSet();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +28,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final flutterWebViewPlugin = FlutterWebviewPlugin();
+  // final flutterWebViewPlugin = FlutterWebviewPlugin();
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +62,9 @@ class _MainPageState extends State<MainPage> {
     initPlatformState();
     if (!sdkHasInit) {
       sdkHasInit = true;
-      QTCommonSdk.setCustomDomain('配置收数域名', '');
+      QTCommonSdk.setCustomDomain('设置主收数域名', '设置副收数域名');
       QTCommonSdk.setLogEnabled(true);
-      QTCommonSdk.initCommon('配置Android应用appkey', '配置iOS应用appkey', 'QT');
+      QTCommonSdk.initCommon('配置android应用的appkey', '配置iOS应用appkey', '配置发布渠道');
     }
   }
 
@@ -273,7 +273,7 @@ class WebViewDemoPage extends StatefulWidget {
 
 class _WebViewDemoPageState extends State<WebViewDemoPage> {
   // Instance of WebView plugin
-  final flutterWebViewPlugin = FlutterWebviewPlugin();
+  // final flutterWebViewPlugin = FlutterWebviewPlugin();
 
   // On destroy stream
   late StreamSubscription _onDestroy;
@@ -282,15 +282,15 @@ class _WebViewDemoPageState extends State<WebViewDemoPage> {
   late StreamSubscription<String> _onUrlChanged;
 
   // On urlChanged stream
-  late StreamSubscription<WebViewStateChanged> _onStateChanged;
+  // late StreamSubscription<WebViewStateChanged> _onStateChanged;
+  //
+  // late StreamSubscription<WebViewHttpError> _onHttpError;
 
-  late StreamSubscription<WebViewHttpError> _onHttpError;
-
-  late StreamSubscription<double> _onProgressChanged;
-
-  late StreamSubscription<double> _onScrollYChanged;
-
-  late StreamSubscription<double> _onScrollXChanged;
+  // late StreamSubscription<double> _onProgressChanged;
+  //
+  // late StreamSubscription<double> _onScrollYChanged;
+  //
+  // late StreamSubscription<double> _onScrollXChanged;
 
   final _urlCtrl = TextEditingController(text: selectedUrl);
 
@@ -312,74 +312,74 @@ class _WebViewDemoPageState extends State<WebViewDemoPage> {
     //   QTCommonSdk.setLogEnabled(true);
     //   QTCommonSdk.initCommon('64632267', '12342267', 'QT');
     // }
-    flutterWebViewPlugin.close();
+    // flutterWebViewPlugin.close();
 
     _urlCtrl.addListener(() {
       selectedUrl = _urlCtrl.text;
     });
 
     // Add a listener to on destroy WebView, so you can make came actions.
-    _onDestroy = flutterWebViewPlugin.onDestroy.listen((_) {
-      if (mounted) {
-        // Actions like show a info toast.
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Webview Destroyed')));
-      }
-    });
-
-    // Add a listener to on url changed
-    _onUrlChanged = flutterWebViewPlugin.onUrlChanged.listen((String url) {
-      if (mounted) {
-        setState(() {
-          _history.add('onUrlChanged: $url');
-        });
-      }
-    });
-
-    _onProgressChanged =
-        flutterWebViewPlugin.onProgressChanged.listen((double progress) {
-      if (mounted) {
-        setState(() {
-          _history.add('onProgressChanged: $progress');
-        });
-      }
-    });
-
-    _onScrollYChanged =
-        flutterWebViewPlugin.onScrollYChanged.listen((double y) {
-      if (mounted) {
-        setState(() {
-          _history.add('Scroll in Y Direction: $y');
-        });
-      }
-    });
-
-    _onScrollXChanged =
-        flutterWebViewPlugin.onScrollXChanged.listen((double x) {
-      if (mounted) {
-        setState(() {
-          _history.add('Scroll in X Direction: $x');
-        });
-      }
-    });
-
-    _onStateChanged =
-        flutterWebViewPlugin.onStateChanged.listen((WebViewStateChanged state) {
-      if (mounted) {
-        setState(() {
-          _history.add('onStateChanged: ${state.type} ${state.url}');
-        });
-      }
-    });
-
-    _onHttpError =
-        flutterWebViewPlugin.onHttpError.listen((WebViewHttpError error) {
-      if (mounted) {
-        setState(() {
-          _history.add('onHttpError: ${error.code} ${error.url}');
-        });
-      }
-    });
+    // _onDestroy = flutterWebViewPlugin.onDestroy.listen((_) {
+    //   if (mounted) {
+    //     // Actions like show a info toast.
+    //     ScaffoldMessenger.of(context)
+    //         .showSnackBar(const SnackBar(content: Text('Webview Destroyed')));
+    //   }
+    // });
+    //
+    // // Add a listener to on url changed
+    // _onUrlChanged = flutterWebViewPlugin.onUrlChanged.listen((String url) {
+    //   if (mounted) {
+    //     setState(() {
+    //       _history.add('onUrlChanged: $url');
+    //     });
+    //   }
+    // });
+    //
+    // _onProgressChanged =
+    //     flutterWebViewPlugin.onProgressChanged.listen((double progress) {
+    //   if (mounted) {
+    //     setState(() {
+    //       _history.add('onProgressChanged: $progress');
+    //     });
+    //   }
+    // });
+    //
+    // _onScrollYChanged =
+    //     flutterWebViewPlugin.onScrollYChanged.listen((double y) {
+    //   if (mounted) {
+    //     setState(() {
+    //       _history.add('Scroll in Y Direction: $y');
+    //     });
+    //   }
+    // });
+    //
+    // _onScrollXChanged =
+    //     flutterWebViewPlugin.onScrollXChanged.listen((double x) {
+    //   if (mounted) {
+    //     setState(() {
+    //       _history.add('Scroll in X Direction: $x');
+    //     });
+    //   }
+    // });
+    //
+    // _onStateChanged =
+    //     flutterWebViewPlugin.onStateChanged.listen((WebViewStateChanged state) {
+    //   if (mounted) {
+    //     setState(() {
+    //       _history.add('onStateChanged: ${state.type} ${state.url}');
+    //     });
+    //   }
+    // });
+    //
+    // _onHttpError =
+    //     flutterWebViewPlugin.onHttpError.listen((WebViewHttpError error) {
+    //   if (mounted) {
+    //     setState(() {
+    //       _history.add('onHttpError: ${error.code} ${error.url}');
+    //     });
+    //   }
+    // });
   }
 
   @override
@@ -387,13 +387,13 @@ class _WebViewDemoPageState extends State<WebViewDemoPage> {
     // Every listener should be canceled, the same should be done with this stream.
     _onDestroy.cancel();
     _onUrlChanged.cancel();
-    _onStateChanged.cancel();
-    _onHttpError.cancel();
-    _onProgressChanged.cancel();
-    _onScrollXChanged.cancel();
-    _onScrollYChanged.cancel();
+    // _onStateChanged.cancel();
+    // _onHttpError.cancel();
+    // _onProgressChanged.cancel();
+    // _onScrollXChanged.cancel();
+    // _onScrollYChanged.cancel();
 
-    flutterWebViewPlugin.dispose();
+    // flutterWebViewPlugin.dispose();
 
     super.dispose();
   }
@@ -413,44 +413,44 @@ class _WebViewDemoPageState extends State<WebViewDemoPage> {
               padding: const EdgeInsets.all(24.0),
               child: TextField(controller: _urlCtrl),
             ),
-            ElevatedButton(
-              onPressed: () {
-                flutterWebViewPlugin.launch(
-                  selectedUrl,
-                  javascriptChannels: jsChannels,
-                  rect: Rect.fromLTWH(
-                      0.0, 0.0, MediaQuery.of(context).size.width, 300.0),
-                  userAgent: kAndroidUserAgent,
-                  invalidUrlRegex:
-                      r'^(https).+(twitter)', // prevent redirecting to twitter when user click on its icon in flutter website
-                );
-              },
-              child: const Text('Open Webview Window'),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     flutterWebViewPlugin.launch(
+            //       selectedUrl,
+            //       javascriptChannels: jsChannels,
+            //       rect: Rect.fromLTWH(
+            //           0.0, 0.0, MediaQuery.of(context).size.width, 300.0),
+            //       userAgent: kAndroidUserAgent,
+            //       invalidUrlRegex:
+            //           r'^(https).+(twitter)', // prevent redirecting to twitter when user click on its icon in flutter website
+            //     );
+            //   },
+            //   child: const Text('Open Webview Window'),
+            // ),
             Container(
               height: 240,
               padding: const EdgeInsets.all(24.0),
               // child: TextField(controller: _codeCtrl),
             ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _history.clear();
-                });
-                flutterWebViewPlugin.close();
-                Navigator.pop(context);
-              },
-              child: const Text('返回首页'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _history.clear();
-                });
-                flutterWebViewPlugin.close();
-              },
-              child: const Text('Close Webview Window'),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     setState(() {
+            //       _history.clear();
+            //     });
+            //     flutterWebViewPlugin.close();
+            //     Navigator.pop(context);
+            //   },
+            //   child: const Text('返回首页'),
+            // ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     setState(() {
+            //       _history.clear();
+            //     });
+            //     flutterWebViewPlugin.close();
+            //   },
+            //   child: const Text('Close Webview Window'),
+            // ),
             Text(_history.join('\n'))
           ],
         ),

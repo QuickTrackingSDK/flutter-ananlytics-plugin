@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_webview_plugin_ios_android: ^0.3.13+12
+#  flutter_webview_plugin_ios_android: ^0.3.13+12
 
   qt_common_sdk:
     # When depending on this package from a real application you should use:

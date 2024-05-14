@@ -5,7 +5,6 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven { url 'https://repo1.maven.org/maven2/'}
         maven { url 'https://maven.aliyun.com/repository/central' }
 
     }
@@ -19,7 +18,6 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'https://repo1.maven.org/maven2/'}
         maven { url 'https://maven.aliyun.com/repository/central' }
 
     }
@@ -31,7 +29,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion 24
+        minSdkVersion 16
     }
     lintOptions {
         disable 'InvalidPackage'
@@ -39,5 +37,5 @@ android {
 }
 
 dependencies {
-    implementation 'com.lydaas.qtsdk:qt-px-common:1.6.1.PX' //必选
+    api 'com.lydaas.qtsdk:qt-px-common:1.6.1.PX' //必选
 }
