@@ -1,3 +1,6 @@
+## 2.0.4
+-feat: iOS SDK 更新至 1.5.5.PX
+
 ## 2.0.3
 -feat: 增加自定义 application 场景代码
 

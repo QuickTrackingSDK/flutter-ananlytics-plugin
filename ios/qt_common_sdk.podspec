@@ -17,7 +17,7 @@ A new Flutter plugin.
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.platform = :ios, '8.0'
-  s.dependency 'QTCommon', '1.5.2.PX'
+  s.dependency 'QTCommon', '1.5.5.PX'
 
   s.static_framework = true
 

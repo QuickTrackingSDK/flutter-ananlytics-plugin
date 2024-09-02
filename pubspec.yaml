@@ -1,6 +1,6 @@
 name: qt_common_sdk
 description: Quick Tracking 统计基础库：Common Flutter plugin（Android & iOS）.
-version: 2.0.3
+version: 2.0.4
 homepage: https://help.aliyun.com/product/194063.html
 
 environment:
